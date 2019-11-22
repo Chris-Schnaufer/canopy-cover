@@ -9,23 +9,33 @@ import numpy as np
 VERSION = '1.0'
 
 # Information on the creator of this algorithm
-ALGORITHM_AUTHOR = 'Unknown'
-ALGORITHM_AUTHOR_EMAIL = ''
+ALGORITHM_AUTHOR = 'Chris Schnaufer'
+ALGORITHM_AUTHOR_EMAIL = 'schnaufer@email.arizona.edu'
+ALGORITHM_CONTRIBUTORS = ["Zongyang Li"]
 
-ALGORITHM_NAME = 'my nifty one'
-ALGORITHM_DESCRIPTION = 'This algorithm calculates the niftyness of RGB plot-level images'
+ALGORITHM_NAME = 'canopycover'
+ALGORITHM_DESCRIPTION = 'Canopy Cover by Plot (Percentage of Green Pixels)'
 
 # Citation information for publication (more information in HOW_TO.md)
-CITATION_AUTHOR = 'unknown'
-CITATION_TITLE = ''
-CITATION_YEAR = ''
+CITATION_AUTHOR = 'Zongyang, Li'
+CITATION_TITLE = 'Maricopa Field Station Data and Metadata'
+CITATION_YEAR = '2016'
 
 # The name of one or more variables returned by the algorithm, separated by commas (more information in HOW_TO.md)
 # If only one name is specified, no comma's are used.
 # Note that variable names cannot have comma's in them: use a different separator instead. Also,
 # all white space is kept intact; don't add any extra whitespace since it may cause name comparisons
 # to fail.
-VARIABLE_NAMES = 'size of image channels'
+VARIABLE_NAMES = 'canopy_cover'
+
+# Variable units matching the order of VARIABLE_NAMES, also comma-separated.
+# For each variable name in VARIABLE_NAMES add the unit of measurement the value represents.
+# !! Replace the content of this string with your variables' unit
+VARIABLE_UNITS = 'percent'
+
+# Variable labels matching the order of VARIABLE_NAMES, also comma-separated.
+# This is an optional definition and can be left empty.
+VARIABLE_LABELS = 'Canopy Cover'
 
 # Optional override for the generation of a BETYdb compatible csv file
 # Set to False to suppress the creation of a compatible file
@@ -36,6 +46,22 @@ WRITE_BETYDB_CSV = True
 WRITE_GEOSTREAMS_CSV = True
 
 
+def calculate_canopycover_masked(pxarray) -> float:
+    """Return greenness percentage of given numpy array of pixels.
+    Args:
+      pxarray (numpy array): rgb image
+    Return:
+      (float): greenness percentage
+    """
+    # For masked images, all nonzero pixels are considered canopy
+    nonzeros = np.count_nonzero(pxarray)
+    ratio = nonzeros/float(pxarray.size)
+    # Scale ratio from 0-1 to 0-100
+    ratio *= 100.0
+
+    return ratio
+
+
 # Entry point for plot-level RBG algorithm
 def calculate(pxarray: np.ndarray):
     """Calculates one or more values from plot-level RGB data
@@ -44,8 +70,6 @@ def calculate(pxarray: np.ndarray):
     Return:
         Returns one or more calculated values
     """
-    # ALGORITHM: replace the following lines with your algorithm
-    channel_size = pxarray[:, :, 1].size
+    canopy_cover = calculate_canopycover_masked(pxarray)
 
-    # RETURN: replace the following return with your calculated values. Be sure to order them as defined in VARIABLE_NAMES above
-    return channel_size
+    return canopy_cover

@@ -17,7 +17,7 @@ ALGORITHM_NAME = 'canopycover'
 ALGORITHM_DESCRIPTION = 'Canopy Cover by Plot (Percentage of Green Pixels)'
 
 # Citation information for publication (more information in HOW_TO.md)
-CITATION_AUTHOR = 'Zongyang, Li'
+CITATION_AUTHOR = '"Zongyang, Li"'
 CITATION_TITLE = 'Maricopa Field Station Data and Metadata'
 CITATION_YEAR = '2016'
 

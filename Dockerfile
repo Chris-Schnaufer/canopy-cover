@@ -1,5 +1,5 @@
 # automatically generated: 2019-11-22T14:37:49.390724
-FROM agpipeline/rgb-plot-base-image:latest
+FROM agdrone/rgb-plot-base-image:latest
 LABEL maintainer="Chris Schnaufer <schnaufer@email.arizona.edu>"
 
 COPY requirements.txt packages.txt /home/extractor/

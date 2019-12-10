@@ -15,6 +15,7 @@ ALGORITHM_CONTRIBUTORS = ["Zongyang Li"]
 
 ALGORITHM_NAME = 'canopycover'
 ALGORITHM_DESCRIPTION = 'Canopy Cover by Plot (Percentage of Green Pixels)'
+ALGORITHM_METHOD = 'Canopy Cover Estimation from RGB images'
 
 # Citation information for publication (more information in HOW_TO.md)
 CITATION_AUTHOR = '"Zongyang, Li"'
